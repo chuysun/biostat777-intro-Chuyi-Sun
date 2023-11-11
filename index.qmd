@@ -1,0 +1,14 @@
+---
+title: "Chuyi"
+image:  Daisy.png
+about:
+  template: trestles
+---
+
+## Introduction  
+
+Hi! My name is Chuyi Sun.
+
+I am a first year ScM student Biostatistics students at the Johns Hopkins University Bloomberg School of Public Health.
+
+I enjoy using flowers to brighten up the space. The photo above is the daisy I had last year.

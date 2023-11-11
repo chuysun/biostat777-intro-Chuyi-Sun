@@ -1,0 +1,175 @@
+---
+title: "Data analysis"
+bibliography: reference.bib
+format:
+  html:
+    theme: default
+---
+
+
+# My data analysis 
+
+![Source: [@us_maps]](us_map.jpeg)
+
+## Question
+This analysis is aim to learn some information about different states in the US. from the article[@states_admission] and I have noticed that the capital might not the largest cities in the some states and capitals may also don't have large population. Therefore I did this analysis try to see the relationship between total area, history of each state, and population.
+
+## Dataset Intro
+The dataset is from tidytuesday[@tidytuesday]. The dictionary and dataset can be found from this [website](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-08-01/readme.md).
+After install the tidytuesdayR, people also can get access to this dataset.
+
+## Audiance  
+This data analysis is an demo of the visualization skills. It should be future develop using more advanced skills. Based on that, the current audience is the just the students in this course.
+
+::: {#about-block}
+
+```{r}
+library(tidytuesdayR)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+```
+
+
+# Import Data
+
+```{r}
+states= tidytuesdayR::tt_load('2023-08-01')
+states_general=states[["states"]]
+state_name_etymology=states[["state_name_etymology"]]
+```
+:::
+
+## Data Wrangling
+```{r}
+data_final=states_general%>%
+  full_join(state_name_etymology, by="state")%>%
+  distinct(state, .keep_all=TRUE)%>%
+  mutate(matched_cities=if_else(capital_city==largest_city,1,0))%>%
+  mutate(population_2020=population_2020/1000000)%>%
+  mutate(total_area_km2=total_area_km2/1000)%>%
+  select(-total_area_mi2,-land_area_mi2, -water_area_mi2)
+
+data_final%>%
+  head(5)
+```
+
+::: {.callout-tip}
+The state have more than one name and meanings, so we have over 50 row in our original dataset.
+:::
+```{r}
+state_land=data_final%>%
+  select(state, land_area_km2)%>%
+  rename(area=land_area_km2)%>%
+  mutate(area_type="Land")
+state_water=data_final%>%
+  select(state, water_area_km2)%>%
+  rename(area=water_area_km2)%>%
+  mutate(area_type="Water")
+water_land=state_water%>%
+  bind_rows(state_land)%>%
+  print()
+```
+
+::: {.callout-note}
+This dataset contains the 50 states and their land and water area, we will use this explore the common fact about 50 states.
+:::
+
+## Part 1
+```{r,fig.width=8}
+data_final%>%
+  ggplot(aes(x=admission, y=population_2020, colour=factor(matched_cities)))+
+  geom_point()+
+  geom_text(aes(label=postal_abbreviation),size=2,vjust = -0.5)+
+  labs(title = "The date when the state admitted to the union vs the population",
+       subtitle = "There is no relationship between the date the state admitted to union, also whether the captial is the largestes has no relationship with population", x="The date when the state admitted to the union", y="The population of state in 2020(in million", 
+       color="whether the largest cities is the captial", caption="Chuyi Sun")
+
+```
+
+```{r}
+#| column: margin
+knitr::kable(
+  data_final%>%
+    select(state, admission)%>%
+    arrange(admission)%>%
+    head(5)
+)
+```
+
+## Part 2
+
+```{r, fig.width=8}
+data_final%>%
+  ggplot(aes(x=total_area_km2, y=population_2020))+
+  geom_smooth(se=F)+  
+  labs(title = "The relationship between land and population",
+       subtitle = "The relationship between population and area of the state is not a strict linear relationship", x="total area in thounds km2", y="total poplation(in million)", caption = "Chuyi Sun")+
+  theme(axis.text = element_text(size =12), axis.title = element_text(size = 14))
+  
+```
+
+```{r}
+#| column: margin
+knitr::kable(
+  data_final%>%
+    select(state, total_area_km2)%>%
+    arrange(desc(total_area_km2))%>%
+    head(5)
+)
+```
+
+```{r}
+#| column: margin
+knitr::kable(
+  data_final%>%
+    select(state, population_2020)%>%
+    arrange(desc(population_2020))%>%
+    head(5)
+)
+```
+
+
+
+
+
+## Part 3
+```{r, fig.width=9, fig.height=18}
+
+water_land%>%
+  ggplot(aes(x=area_type, y=area, fill=area_type))+
+  geom_bar(stat="identity")+
+  facet_wrap(~state,scales = "fixed", nrow=10)+
+  labs(title = "The water area and land area of each state",
+       subtitle = "Overall, all the state have more land area than water area. Alaska has the largest lan area and water area", x="the type of area", y="area in thounds km2", caption = "Chuyi Sun")
+
+
+```
+
+## Part 4 
+
+##### Summary 
+
+Before the analysis, I assume there are might be some relationship between the total area, history of each state, and population. However, from the result, we can't establish any relationship between these three aspect. The additional results we can conclude is US has more land area than water area, which consistent with the latitude and longitude of the US. Lastly, if the state have the more area that means that the population is large, eg Alaska[@alaska] has large area, but the climate is not good for living.
+
+## Part 5
+
+###### Function
+
+dplyr
+
+- mutate
+- distinct
+- select
+- if_else
+- filter
+- inner_join
+- bind_rows
+- rename
+
+ggplot2 
+
+- geom_point
+- geom_bar
+- geom_smooth
+
