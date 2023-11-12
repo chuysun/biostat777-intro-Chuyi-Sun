@@ -207,19 +207,22 @@ div.csl-indent {
 </div>
 <section id="question" class="level2">
 <h2 class="anchored" data-anchor-id="question">Question</h2>
-<p>This analysis is aim to learn some information about different states in the US. from the article<span class="citation" data-cites="states_admission">(<a href="#ref-states_admission" role="doc-biblioref">ThoughtCo Year</a>)</span> and I have noticed that the capital might not the largest cities in the some states and capitals may also don’t have large population. Therefore I did this analysis try to see the relationship between total area, history of each state, and population.</p>
+<p>This analysis aims to gather some information about different states in the US. I used to think the capital is most likely to be the largest city in the state, however it seems most of the time it is not true, and after reading the article<span class="citation" data-cites="states_admission">(<a href="#ref-states_admission" role="doc-biblioref">ThoughtCo Year</a>)</span>, I am think whether is has some relation with the history. Therefore, I conducted this analysis try to explore the relationship between total area, history of each state, and its population.</p>
 </section>
 <section id="dataset-intro" class="level2">
 <h2 class="anchored" data-anchor-id="dataset-intro">Dataset Intro</h2>
-<p>The dataset is from tidytuesday<span class="citation" data-cites="tidytuesday">(<a href="#ref-tidytuesday" role="doc-biblioref">Community 2023</a>)</span>. The dictionary and dataset can be found from this <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-08-01/readme.md">website</a>. After install the tidytuesdayR, people also can get access to this dataset.</p>
+<p>The dataset is from tidytuesday<span class="citation" data-cites="tidytuesday">(<a href="#ref-tidytuesday" role="doc-biblioref">Community 2023</a>)</span>. The dictionary and dataset can be found on this <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-08-01/readme.md">website</a>. After installing the tidytuesdayR, people also can get access to this dataset.</p>
 </section>
 <section id="audiance" class="level2">
 <h2 class="anchored" data-anchor-id="audiance">Audiance</h2>
-<p>This data analysis is an demo of the visualization skills. It should be future develop using more advanced skills. Based on that, the current audience is the just the students in this course.</p>
+<p>This data analysis is a demonstration of the visualization skills. It should be further developed using more advanced techniques. Based on that, the current audience is the students in this course.</p>
 <div id="about-block">
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytuesdayR)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.3     ✔ readr     2.1.4
@@ -232,13 +235,19 @@ div.csl-indent {
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <section id="import-data" class="level1">
 <h1>Import Data</h1>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>states<span class="ot">=</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="st">'2023-08-01'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>--- Compiling #TidyTuesday Information for 2023-08-01 ----</code></pre>
 </div>
@@ -256,8 +265,11 @@ div.csl-indent {
 <div class="cell-output cell-output-stderr">
 <pre><code>--- Download complete ---</code></pre>
 </div>
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>states_general<span class="ot">=</span>states[[<span class="st">"states"</span>]]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>state_name_etymology<span class="ot">=</span>states[[<span class="st">"state_name_etymology"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 </div>
@@ -265,6 +277,8 @@ div.csl-indent {
 <section id="data-wrangling" class="level2">
 <h2 class="anchored" data-anchor-id="data-wrangling">Data Wrangling</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_final<span class="ot">=</span>states_general<span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(state_name_etymology, <span class="at">by=</span><span class="st">"state"</span>)<span class="sc">%&gt;%</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(state, <span class="at">.keep_all=</span><span class="cn">TRUE</span>)<span class="sc">%&gt;%</span></span>
@@ -275,6 +289,7 @@ div.csl-indent {
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>data_final<span class="sc">%&gt;%</span></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 16
   state postal_abbreviation capital_city largest_city admission  population_2020
@@ -300,10 +315,12 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The state have more than one name and meanings, so we have over 50 row in our original dataset.</p>
+<p>Some state have more than one name and meanings, so we have over 50 row in our original dataset. After use distinct function, there should be only 50.</p>
 </div>
 </div>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>state_land<span class="ot">=</span>data_final<span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state, land_area_km2)<span class="sc">%&gt;%</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">area=</span>land_area_km2)<span class="sc">%&gt;%</span></span>
@@ -315,6 +332,7 @@ Tip
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>water_land<span class="ot">=</span>state_water<span class="sc">%&gt;%</span></span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(state_land)<span class="sc">%&gt;%</span></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 100 × 3
    state         area area_type
@@ -342,31 +360,37 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This dataset contains the 50 states and their land and water area, we will use this explore the common fact about 50 states.</p>
+<p>This smaller dataset contains the 50 states and their land and water area, we will use this to explore the common fact about 50 states.</p>
 </div>
 </div>
 </section>
 <section id="part-1" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="part-1">Part 1</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data_final<span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>admission, <span class="at">y=</span>population_2020, <span class="at">colour=</span><span class="fu">factor</span>(matched_cities)))<span class="sc">+</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>postal_abbreviation),<span class="at">size=</span><span class="dv">2</span>,<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"The date when the state admitted to the union vs the population"</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"There is no relationship between the date the state admitted to union, also whether the captial is the largestes has no relationship with population"</span>, <span class="at">x=</span><span class="st">"The date when the state admitted to the union"</span>, <span class="at">y=</span><span class="st">"The population of state in 2020(in million"</span>, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"The date when the state admitted to the union vs. the population"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"There is no relationship between the date the state admitted to the union. Also whether the capital is the largest city has no correlation with the population"</span>, <span class="at">x=</span><span class="st">"The date when the state admitted to the union"</span>, <span class="at">y=</span><span class="st">"The population of state in 2020(in million"</span>, </span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color=</span><span class="st">"whether the largest cities is the captial"</span>, <span class="at">caption=</span><span class="st">"Chuyi Sun"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="data_analysis_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 <div class="cell page-columns page-full">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  data_final<span class="sc">%&gt;%</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, admission)<span class="sc">%&gt;%</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(admission)<span class="sc">%&gt;%</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">5</span>)</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 
 <div class="no-row-height column-margin column-container"><div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -404,12 +428,15 @@ Note
 <section id="part-2" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="part-2">Part 2</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>data_final<span class="sc">%&gt;%</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>total_area_km2, <span class="at">y=</span>population_2020))<span class="sc">+</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span>F)<span class="sc">+</span>  </span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"The relationship between land and population"</span>,</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"The relationship between population and area of the state is not a strict linear relationship"</span>, <span class="at">x=</span><span class="st">"total area in thounds km2"</span>, <span class="at">y=</span><span class="st">"total poplation(in million)"</span>, <span class="at">caption =</span> <span class="st">"Chuyi Sun"</span>)<span class="sc">+</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">12</span>), <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
 </div>
@@ -418,12 +445,15 @@ Note
 </div>
 </div>
 <div class="cell page-columns page-full">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  data_final<span class="sc">%&gt;%</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, total_area_km2)<span class="sc">%&gt;%</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(total_area_km2))<span class="sc">%&gt;%</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">5</span>)</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 
 <div class="no-row-height column-margin column-container"><div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -458,12 +488,15 @@ Note
 </table>
 </div></div></div>
 <div class="cell page-columns page-full">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  data_final<span class="sc">%&gt;%</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(state, population_2020)<span class="sc">%&gt;%</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(population_2020))<span class="sc">%&gt;%</span></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">5</span>)</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 
 <div class="no-row-height column-margin column-container"><div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -501,12 +534,15 @@ Note
 <section id="part-3" class="level2">
 <h2 class="anchored" data-anchor-id="part-3">Part 3</h2>
 <div class="cell">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>water_land<span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>area_type, <span class="at">y=</span>area, <span class="at">fill=</span>area_type))<span class="sc">+</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>)<span class="sc">+</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>state,<span class="at">scales =</span> <span class="st">"fixed"</span>, <span class="at">nrow=</span><span class="dv">10</span>)<span class="sc">+</span></span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"The water area and land area of each state"</span>,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Overall, all the state have more land area than water area. Alaska has the largest lan area and water area"</span>, <span class="at">x=</span><span class="st">"the type of area"</span>, <span class="at">y=</span><span class="st">"area in thounds km2"</span>, <span class="at">caption =</span> <span class="st">"Chuyi Sun"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Overall, all the state have more land area than water area. Alaska has the largest land area and water area"</span>, <span class="at">x=</span><span class="st">"the type of area"</span>, <span class="at">y=</span><span class="st">"area in thounds km2"</span>, <span class="at">caption =</span> <span class="st">"Chuyi Sun"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="data_analysis_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="864"></p>
 </div>
@@ -516,13 +552,13 @@ Note
 <h2 class="anchored" data-anchor-id="part-4">Part 4</h2>
 <section id="summary" class="level5">
 <h5 class="anchored" data-anchor-id="summary">Summary</h5>
-<p>Before the analysis, I assume there are might be some relationship between the total area, history of each state, and population. However, from the result, we can’t establish any relationship between these three aspect. The additional results we can conclude is US has more land area than water area, which consistent with the latitude and longitude of the US. Lastly, if the state have the more area that means that the population is large, eg Alaska<span class="citation" data-cites="alaska">(<a href="#ref-alaska" role="doc-biblioref">Alaska.org Year</a>)</span> has large area, but the climate is not good for living.</p>
+<p>Before the analysis, I assumed there might be a relationship between the total area, history of each state, and population. However, from the results, we can’t establish any relationship between these three aspects. The additional results we can conclude is US has more land area than the water area, which is consistent with its latitude and longitude. Lastly, if the state has the more area that doesn’t mean that the population is large, eg Alaska<span class="citation" data-cites="alaska">(<a href="#ref-alaska" role="doc-biblioref">Alaska.org Year</a>)</span> has a large area, but the climate is not good for living.</p>
 </section>
 </section>
 <section id="part-5" class="level2">
 <h2 class="anchored" data-anchor-id="part-5">Part 5</h2>
-<section id="function" class="level6">
-<h6 class="anchored" data-anchor-id="function">Function</h6>
+<section id="functions-used" class="level6">
+<h6 class="anchored" data-anchor-id="functions-used">Functions used</h6>
 <p>dplyr</p>
 <ul>
 <li>mutate</li>

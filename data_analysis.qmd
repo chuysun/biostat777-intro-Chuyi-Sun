@@ -4,22 +4,22 @@ bibliography: reference.bib
 format:
   html:
     theme: default
+    code-fold: true
+    code-summary: "Show the code"
 ---
 
-
-# My data analysis 
 
 ![Source: [@us_maps]](us_map.jpeg)
 
 ## Question
-This analysis is aim to learn some information about different states in the US. from the article[@states_admission] and I have noticed that the capital might not the largest cities in the some states and capitals may also don't have large population. Therefore I did this analysis try to see the relationship between total area, history of each state, and population.
+This analysis aims to gather some information about different states in the US. I used to think the capital is most likely to be the largest city in the state, however it seems most of the time it is not true, and after reading the article[@states_admission], I am think whether is has some relation with the history. Therefore, I conducted this analysis try to explore the relationship between total area, history of each state, and its population.
 
 ## Dataset Intro
-The dataset is from tidytuesday[@tidytuesday]. The dictionary and dataset can be found from this [website](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-08-01/readme.md).
-After install the tidytuesdayR, people also can get access to this dataset.
+The dataset is from tidytuesday[@tidytuesday]. The dictionary and dataset can be found on this [website](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-08-01/readme.md).
+After installing the tidytuesdayR, people also can get access to this dataset.
 
 ## Audiance  
-This data analysis is an demo of the visualization skills. It should be future develop using more advanced skills. Based on that, the current audience is the just the students in this course.
+This data analysis is a demonstration of the visualization skills. It should be further developed using more advanced techniques. Based on that, the current audience is the students in this course.
 
 ::: {#about-block}
 
@@ -55,8 +55,9 @@ data_final%>%
 ```
 
 ::: {.callout-tip}
-The state have more than one name and meanings, so we have over 50 row in our original dataset.
+Some state have more than one name and meanings, so we have over 50 row in our original dataset. After use distinct function, there should be only 50.
 :::
+
 ```{r}
 state_land=data_final%>%
   select(state, land_area_km2)%>%
@@ -72,7 +73,7 @@ water_land=state_water%>%
 ```
 
 ::: {.callout-note}
-This dataset contains the 50 states and their land and water area, we will use this explore the common fact about 50 states.
+This smaller dataset contains the 50 states and their land and water area, we will use this to explore the common fact about 50 states.
 :::
 
 ## Part 1
@@ -81,8 +82,8 @@ data_final%>%
   ggplot(aes(x=admission, y=population_2020, colour=factor(matched_cities)))+
   geom_point()+
   geom_text(aes(label=postal_abbreviation),size=2,vjust = -0.5)+
-  labs(title = "The date when the state admitted to the union vs the population",
-       subtitle = "There is no relationship between the date the state admitted to union, also whether the captial is the largestes has no relationship with population", x="The date when the state admitted to the union", y="The population of state in 2020(in million", 
+  labs(title = "The date when the state admitted to the union vs. the population",
+       subtitle = " Although, we can't see the name of each points, there is no relationship between the date the state admitted to the union. Also whether the capital is the largest city has no correlation with the population", x="The date when the state admitted to the union.", y="The population of state in 2020(in million)", 
        color="whether the largest cities is the captial", caption="Chuyi Sun")
 
 ```
@@ -130,9 +131,6 @@ knitr::kable(
 ```
 
 
-
-
-
 ## Part 3
 ```{r, fig.width=9, fig.height=18}
 
@@ -141,7 +139,7 @@ water_land%>%
   geom_bar(stat="identity")+
   facet_wrap(~state,scales = "fixed", nrow=10)+
   labs(title = "The water area and land area of each state",
-       subtitle = "Overall, all the state have more land area than water area. Alaska has the largest lan area and water area", x="the type of area", y="area in thounds km2", caption = "Chuyi Sun")
+       subtitle = "Overall, all the state have more land area than water area. Alaska has the largest land area and water area", x="the type of area", y="area in thounds km2", caption = "Chuyi Sun")
 
 
 ```
@@ -150,11 +148,13 @@ water_land%>%
 
 ##### Summary 
 
-Before the analysis, I assume there are might be some relationship between the total area, history of each state, and population. However, from the result, we can't establish any relationship between these three aspect. The additional results we can conclude is US has more land area than water area, which consistent with the latitude and longitude of the US. Lastly, if the state have the more area that means that the population is large, eg Alaska[@alaska] has large area, but the climate is not good for living.
+Before the analysis, I assumed there might be a relationship between the total area, history of each state, and population. However, from the results, we can't establish any relationship between these three aspects. The additional results we can conclude is US has more land area than the water area, which is  consistent with its latitude and longitude. Lastly, if the state has the more area that doesn't mean that the population is large, eg Alaska[@alaska] has a large area, but the climate is not good for living.
+
+![Source: [@alaska]](Alaska.jpeg)
 
 ## Part 5
 
-###### Function
+###### Functions used
 
 dplyr
 
@@ -173,5 +173,3 @@ ggplot2
 - geom_bar
 - geom_smooth
 
-
-### Chuyisun

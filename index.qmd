@@ -1,5 +1,5 @@
 ---
-title: "Chuyi"
+title: " "
 image:  Daisy.png
 about:
   template: trestles
