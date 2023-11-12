@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Chuyi’s Website - Data analysis</title>
+<title>Chuyi Sun - Data analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -125,7 +125,7 @@ div.csl-indent {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Chuyi’s Website</span>
+    <span class="navbar-title">Chuyi Sun</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -162,18 +162,15 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#my-data-analysis" id="toc-my-data-analysis" class="nav-link active" data-scroll-target="#my-data-analysis">My data analysis</a>
-  <ul class="collapse">
-  <li><a href="#question" id="toc-question" class="nav-link" data-scroll-target="#question">Question</a></li>
+  <li><a href="#question" id="toc-question" class="nav-link active" data-scroll-target="#question">Question</a></li>
   <li><a href="#dataset-intro" id="toc-dataset-intro" class="nav-link" data-scroll-target="#dataset-intro">Dataset Intro</a></li>
-  <li><a href="#audiance" id="toc-audiance" class="nav-link" data-scroll-target="#audiance">Audiance</a></li>
+  <li><a href="#audience" id="toc-audience" class="nav-link" data-scroll-target="#audience">Audience</a></li>
   <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">Data Wrangling</a></li>
   <li><a href="#part-1" id="toc-part-1" class="nav-link" data-scroll-target="#part-1">Part 1</a></li>
   <li><a href="#part-2" id="toc-part-2" class="nav-link" data-scroll-target="#part-2">Part 2</a></li>
   <li><a href="#part-3" id="toc-part-3" class="nav-link" data-scroll-target="#part-3">Part 3</a></li>
   <li><a href="#part-4" id="toc-part-4" class="nav-link" data-scroll-target="#part-4">Part 4</a></li>
   <li><a href="#part-5" id="toc-part-5" class="nav-link" data-scroll-target="#part-5">Part 5</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -197,8 +194,6 @@ div.csl-indent {
 
 </header>
 
-<section id="my-data-analysis" class="level1 page-columns page-full">
-<h1>My data analysis</h1>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="us_map.jpeg" class="img-fluid figure-img"></p>
@@ -213,8 +208,8 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="dataset-intro">Dataset Intro</h2>
 <p>The dataset is from tidytuesday<span class="citation" data-cites="tidytuesday">(<a href="#ref-tidytuesday" role="doc-biblioref">Community 2023</a>)</span>. The dictionary and dataset can be found on this <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-08-01/readme.md">website</a>. After installing the tidytuesdayR, people also can get access to this dataset.</p>
 </section>
-<section id="audiance" class="level2">
-<h2 class="anchored" data-anchor-id="audiance">Audiance</h2>
+<section id="audience" class="level2">
+<h2 class="anchored" data-anchor-id="audience">Audience</h2>
 <p>This data analysis is a demonstration of the visualization skills. It should be further developed using more advanced techniques. Based on that, the current audience is the students in this course.</p>
 <div id="about-block">
 <div class="cell">
@@ -374,7 +369,7 @@ Note
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>postal_abbreviation),<span class="at">size=</span><span class="dv">2</span>,<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"The date when the state admitted to the union vs. the population"</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"There is no relationship between the date the state admitted to the union. Also whether the capital is the largest city has no correlation with the population"</span>, <span class="at">x=</span><span class="st">"The date when the state admitted to the union"</span>, <span class="at">y=</span><span class="st">"The population of state in 2020(in million"</span>, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">" Although, we can't see the name of each points, there is no relationship between the date the state admitted to the union. Also whether the capital is the largest city has no correlation with the population"</span>, <span class="at">x=</span><span class="st">"The date when the state admitted to the union."</span>, <span class="at">y=</span><span class="st">"The population of state in 2020(in million)"</span>, </span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color=</span><span class="st">"whether the largest cities is the captial"</span>, <span class="at">caption=</span><span class="st">"Chuyi Sun"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
@@ -553,6 +548,12 @@ Note
 <section id="summary" class="level5">
 <h5 class="anchored" data-anchor-id="summary">Summary</h5>
 <p>Before the analysis, I assumed there might be a relationship between the total area, history of each state, and population. However, from the results, we can’t establish any relationship between these three aspects. The additional results we can conclude is US has more land area than the water area, which is consistent with its latitude and longitude. Lastly, if the state has the more area that doesn’t mean that the population is large, eg Alaska<span class="citation" data-cites="alaska">(<a href="#ref-alaska" role="doc-biblioref">Alaska.org Year</a>)</span> has a large area, but the climate is not good for living.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Alaska.jpeg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Source: <span class="citation" data-cites="alaska">(<a href="#ref-alaska" role="doc-biblioref">Alaska.org Year</a>)</span></figcaption>
+</figure>
+</div>
 </section>
 </section>
 <section id="part-5" class="level2">
@@ -579,7 +580,6 @@ Note
 
 
 
-</section>
 </section>
 </section>
 
